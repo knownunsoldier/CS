@@ -8,9 +8,15 @@ wn = trtl.Screen()
 wn.addshape(apple_image) # Make the screen aware of the new file
 
 apple = trtl.Turtle()
-apple.penup()
 apple.left(90)  #image loads rotated 90 degrees clockwise
 apple.speed(0)
+apple.penup()
+apple.goto(0, 150)
+
+
+#-----functions-----
+# given a turtle, set that turtle to be shaped by the image file
+wn.bgpic("background.gif")
 
 #-----functions-----
 # given a turtle, set that turtle to be shaped by the image file

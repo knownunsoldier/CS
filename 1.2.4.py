@@ -17,19 +17,20 @@ win.bgcolor(255, 0, 0)  #background color of window
 
 spiral.pencolor(0, 0, 0)
 walls=20
-wall_length=15
+wall_length=20
 
 #-----game functions--------
     #spiral
 def makeSpiral():
-    spiral.pendown
+    spiral.pensize(10)
     spiral.goto(0, 0)
-    spiral.setheading(0)
+    spiral.setheading(90)
     for i in range(walls):
-        spiral.forward(wall_length*(1+(i)))
+        spiral.forward(wall_length)
         spiral.right(90)
-        spiral.forward(wall_length*(1+(i)))
+        spiral.forward(wall_length)
         spiral.right(90)
+        wall_length+=20
         
 
 
