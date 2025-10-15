@@ -1,7 +1,7 @@
 #-----import statements-----
 import turtle
 import random
-#-----initialize turtle-----
+#-----initialize turtle(s)-----
 turtle.colormode(255)
 win=turtle.Screen()
 spiral=turtle.Turtle()
@@ -9,24 +9,28 @@ spiral.pensize(5)
 spiral.speed(0)
 spiral.pencolor(0, 0, 0)
 #-----game configuration----
-win.setup(600,600)#sets the overall dimensions of the screen
-#rwin.bgcolor(input("Pick any color you want"))  #background color of window 
-win.bgcolor(255, 255, 255)  #background color of window
+win.setup(600,600)                                  #sets the overall dimensions of the screen
+win.bgcolor(255, 255, 255)                          #background color of window
+#rwin.bgcolor(input("Pick any color you want"))     #background color of window 
 walls=20
 path_width=20
+door_width=20
 #-----game functions--------
-def makeSpiral():       #spiral
+def makeSpiral():                                   
     global path_width
     wall_length=20
     spiral.goto(0, 0)
-    spiral.setheading(90)
     for i in range(walls):
-        spiral.forward(wall_length)
-        spiral.left(90)
-        spiral.forward(wall_length)
-        spiral.left(90)
+        for l in range(2):
+            spiral.left(90)
+            spiral.forward(10)
+            spiral.penup()
+            spiral.forward(door_width)
+            spiral.pendown()
+            spiral.forward(wall_length-(door_width+10))
+            spiral.forward(wall_length)
         wall_length+=path_width
-def go():
+def go():                                           
     win.tracer(0)
     makeSpiral()
     win.update()
