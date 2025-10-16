@@ -6,7 +6,7 @@ turtle.colormode(255)
 win=turtle.Screen()
 spiral=turtle.Turtle()
 spiral.pensize(5)
-spiral.speed(1)
+spiral.speed(0)
 spiral.pencolor(0, 0, 0)
 spiral.penup()
 #-----game configuration----
@@ -42,8 +42,6 @@ def makeDoor():
     spiral.penup()
     spiral.forward(door_width) #draw door section
     spiral.pendown()
-
-
 def makeBarrier():
     spiral.pendown()
     spiral.right(90)
