@@ -6,7 +6,7 @@ turtle.colormode(255)
 win=turtle.Screen()
 spiral=turtle.Turtle()
 spiral.pensize(5)
-spiral.speed(0)
+spiral.speed(1)
 spiral.pencolor(0, 0, 0)
 #-----game configuration----
 win.setup(600,600)                                  #sets the overall dimensions of the screen
@@ -18,7 +18,7 @@ door_width=20
 #-----game functions--------
 def makeSpiral():                                   
     global path_width
-    wall_length=20
+    wall_length=60
     spiral.goto(0, 0)
     for i in range(walls):
         for l in range(2):
@@ -27,12 +27,17 @@ def makeSpiral():
             spiral.penup()
             spiral.forward(door_width)
             spiral.pendown()
-            spiral.forward(wall_length-(door_width+10))
-            spiral.forward(wall_length)
+            spiral.forward(40)
+
+            spiral.right(90)
+            spiral.forward(path_width)
+            spiral.forward(-path_width)
+            spiral.left(90)
+            spiral.forward(wall_length-(door_width+50))
         wall_length+=path_width
 def go():                                           
-    win.tracer(0)
     makeSpiral()
+    win.tracer(0)
     win.update()
 #-----events / function calls----------------
 go()
