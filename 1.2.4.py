@@ -6,9 +6,13 @@ turtle.colormode(255)
 win=turtle.Screen()
 spiral=turtle.Turtle()
 spiral.pensize(5)
+spiral.hideturtle()
 spiral.speed(0)
 spiral.pencolor(0, 0, 0)
-spiral.penup()
+rnr = turtle.Turtle()
+rnr.shape("turtle")
+rnr.color(0, 0, 255)
+rnr.pencolor(0, 128, 128)
 #-----game configuration----
 win.setup(600,600)
 win.bgcolor(255, 255, 255)
@@ -17,10 +21,11 @@ path_width=20
 door_width=20
 wall_length=70
 #-----game functions--------
-def makeSpiral():                                   
+def makeSpiral():
     global path_width
     global wall_length
     spiral.penup() 
+    spiral.hideturtle()
     spiral.goto(40, 0)
     global i
     for i in range(walls): 
@@ -70,6 +75,7 @@ def go():
     win.tracer(0)
     makeSpiral()
     win.update()
+    print("donesies!")
 #-----events / function calls----------------
 go()
 win.mainloop()
