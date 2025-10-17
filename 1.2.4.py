@@ -45,16 +45,19 @@ def makeSpiral():
         spiral.forward(distance_one)
         if whichfirst==0:
             makeDoor() 
-            print("door first")
         else:
             makeBarrier()
-            print("barrier first")
         spiral.forward(distance_two)
         if whichfirst==0:
             makeBarrier()
         else:
             makeDoor()
-        spiral.forward(distance_three)
+        if i==walls-1:
+            spiral.forward(distance_three-path_width)
+            spiral.left(90)
+            spiral.forward(path_width)
+        else:
+            spiral.forward(distance_three)
         if i%2==1:
             wall_length+=path_width
 def makeDoor():
@@ -71,11 +74,11 @@ def makeBarrier():
     spiral.forward(-path_width)
     spiral.left(90)
     spiral.pendown()
-def go():
+def all():
     win.tracer(0)
     makeSpiral()
     win.update()
     print("donesies!")
 #-----events / function calls----------------
-go()
+all()
 win.mainloop()
