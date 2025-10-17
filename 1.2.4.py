@@ -10,10 +10,9 @@ spiral.speed(0)
 spiral.pencolor(0, 0, 0)
 spiral.penup()
 #-----game configuration----
-win.setup(600,600)                                  #sets the overall dimensions of the screen
-win.bgcolor(255, 255, 255)                          #background color of window
-#rwin.bgcolor(input("Pick any color you want"))     #background color of window 
-walls=20
+win.setup(600,600)
+win.bgcolor(255, 255, 255)
+walls=30
 path_width=20
 door_width=20
 wall_length=70
@@ -21,33 +20,40 @@ wall_length=70
 def makeSpiral():                                   
     global path_width
     global wall_length
+    spiral.penup() 
     spiral.goto(40, 0)
     global i
-    spiral.penup() 
-    for i in range(walls):
+    for i in range(walls): 
+        '''i know this whole for loop looks like 
+        insanity but i promise i can explain 
+        it if you need me to'''
         spiral.left(90) 
+        spiral.pendown()
         whichfirst=random.randint(0, 1) 
-        half = (wall_length-(door_width+(path_width*2)))/2
-        distance_one = random.randint(0, int(half))
-        distance_two = random.randint(0, int(half))
+        distances = []
+        for l in range(3):
+            distances.append(random.randint(0, 10))
+        x=sum(distances)
+        distance_one = (distances[0]/x)*(wall_length - (door_width + (path_width * 2)))
+        distance_two = distances[1]/x*(wall_length - (door_width + (path_width * 2)))
+        distance_three = distances[2]/x*(wall_length - (door_width + (path_width * 2)))
         spiral.forward(distance_one)
         if whichfirst==0:
             makeDoor() 
+            print("door first")
         else:
             makeBarrier()
+            print("barrier first")
         spiral.forward(distance_two)
         if whichfirst==0:
-            makeBarrier() 
+            makeBarrier()
         else:
             makeDoor()
-        spiral.forward(wall_length-(distance_one+distance_two))
+        spiral.forward(distance_three)
         if i%2==1:
             wall_length+=path_width
-
 def makeDoor():
     spiral.pendown()
-    if i==0: #is it the first loop?
-        spiral.penup()
     spiral.forward(10)
     spiral.penup()
     spiral.forward(door_width) #draw door section
@@ -61,8 +67,8 @@ def makeBarrier():
     spiral.left(90)
     spiral.pendown()
 def go():
-    makeSpiral()
     win.tracer(0)
+    makeSpiral()
     win.update()
 #-----events / function calls----------------
 go()
