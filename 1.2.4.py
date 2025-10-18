@@ -9,13 +9,18 @@ spiral.pensize(5)
 spiral.hideturtle()
 spiral.speed(0)
 spiral.pencolor(0, 0, 0)
-rnr = turtle.Turtle()
+rnr=turtle.Turtle()
+rnr.speed(0)
+rnr.penup()
 rnr.shape("turtle")
 rnr.color(0, 0, 255)
 rnr.pencolor(0, 128, 128)
+rnr.pensize(4)
+rnr.goto(-160, -160)
+rnr.pendown()
 #-----game configuration----
 win.setup(600,600)
-win.bgcolor(255, 255, 255)
+win.bgcolor(255, 255, 255) 
 walls=30
 path_width=20
 door_width=20
@@ -37,7 +42,7 @@ def makeSpiral():
         whichfirst=random.randint(0, 1) 
         distances = []
         for l in range(3):
-            distances.append(random.randint(0, 10))
+            distances.append(random.randint(1, 10))
         x=sum(distances)
         distance_one = (distances[0]/x)*(wall_length - (door_width + (path_width * 2)))
         distance_two = distances[1]/x*(wall_length - (door_width + (path_width * 2)))
@@ -74,11 +79,37 @@ def makeBarrier():
     spiral.forward(-path_width)
     spiral.left(90)
     spiral.pendown()
+def up():
+    print("going up")
+    rnr.setheading(90)
+    rnr.forward(5)
+    win.update()
+def down():
+    print("going down")
+    rnr.setheading(270)
+    rnr.forward(5)
+    win.update()
+def right():
+    print("going right")
+    rnr.setheading(0)
+    rnr.forward(5)
+    win.update()
+def left():
+    print("going left")
+    rnr.setheading(180)
+    rnr.forward(5)
+    win.update()
 def all():
     win.tracer(0)
     makeSpiral()
+    win.listen()
     win.update()
     print("donesies!")
 #-----events / function calls----------------
 all()
+win.onkeypress(up, "Up")
+win.onkeypress(down, "Down")
+win.onkeypress(right, "Right")
+win.onkeypress(left, "Left")
+win.listen()
 win.mainloop()
