@@ -1,7 +1,6 @@
 #-----import statements-----
 import turtle
 import random
-
 #-----inittialize turtle(s)-----
 turtle.colormode(255)
 win=turtle.Screen()
@@ -10,7 +9,6 @@ spiral.pensize(5)
 spiral.hideturtle()
 spiral.speed(0)
 spiral.pencolor(0, 0, 0)
-
 rnr=turtle.Turtle()
 rnr.speed(0)
 rnr.penup()
@@ -20,7 +18,6 @@ rnr.pencolor(0, 128, 128)
 rnr.pensize(4)
 rnr.goto(-160, -160)
 rnr.pendown()
-
 #-----game configuration----
 win.setup(600,600)
 win.bgcolor(255, 255, 255) 
@@ -28,7 +25,6 @@ walls=30
 path_width=20
 door_width=20
 wall_length=70
-
 #-----game functions--------
 def makeSpiral():
     global path_width
@@ -73,8 +69,7 @@ def makeDoor():
     spiral.pendown()
     spiral.forward(10)
     spiral.penup()
-    spiral.forward(door_width) 
-#draw door section
+    spiral.forward(door_width) #draw door section
     spiral.pendown()
 def makeBarrier():
     if i>walls-5: 
@@ -110,7 +105,6 @@ def all():
     win.listen()
     win.update()
     print("donesies!")
-
 #-----events / function calls----------------
 all()
 win.onkeypress(up, "Up")
