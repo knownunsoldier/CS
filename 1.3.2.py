@@ -68,6 +68,9 @@ def update_screen():
     #draw platforms
     for p in platforms:
         pygame.draw.rect(win, orange, p)
+    #draw sprite
+    if spriteFaceRight:
+        win.blit(GHOSTimgL, (ghost_x, ghost_y))
     pygame.display.update()
 
 ##-----------UPDATE SCREEN
@@ -89,6 +92,8 @@ def go():
                     print("you quit")
                     running = False
                     pygame.quit()
+                if event.key == pygame.K_a:
+                    spriteFaceRight = False
         update_screen()
 
 go()
