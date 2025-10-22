@@ -1,26 +1,3 @@
-
-
-'''
- - CONSTANTS + VARIABLES
- - Setup WIN/Screen
- - setup main game loop
-    - while running = True:
- - update screen function
- - Create platforms
- - get sprite image onto window
-
-DAY2
- - image falling
- - collision detection w/ platforms
-    - "Can I move there?"  
-         Store last X,Y values so we can return if collide/overlap
-    - Vertical then Horizontal
- - arrow keys
-   - a = LEFT
-   - d = RIGHT
-   - w = JUMP
- - Reset to top of screen when jump off platform
-'''
 ##---------- Imports and Setup
 import pygame
 pygame.init()
@@ -44,6 +21,9 @@ orange = (240, 157, 81)
 
 ghost_x = 300
 ghost_y = 100
+ghost_accel = 0.4
+ghost_speed = 0
+ghost_on_ground = False
 
 spriteFaceRight = True
 GHOSTimg = pygame.image.load('ghost.gif')
@@ -68,16 +48,72 @@ def update_screen():
     #draw platforms
     for p in platforms:
         pygame.draw.rect(win, orange, p)
-    #draw sprite
+    #draw sprite - DIFFERENT THAN WEBX - VSCODE DIDN'T LIKE IT
     if spriteFaceRight:
         win.blit(GHOSTimgL, (ghost_x, ghost_y))
+    else:
+        win.blit(pygame.transform.flip(GHOSTimgL, True, False), (ghost_x, ghost_y))
     pygame.display.update()
+
+def check_collision():
+    global ghost_speed, ghost_on_ground
+    global y_collision, ghost_y, new_ghost_y
+
+    #vertical fall
+    ghost_speed += ghost_accel
+    new_ghost_y += ghost_speed
+
+    #draw rectangle of new possible locations to check if location is availible.
+    new_ghost_rect = pygame.Rect(ghost_x, new_ghost_y, SPRITEWH, SPRITEWH)
+    y_collision = False
+    ghost_on_ground = False
+
+    #check to see if we hit platform
+    for p in platforms:
+        if p.colliderect(new_ghost_rect): #check if touching
+            print("hit feet")
+            y_collision = True
+            ghost_on_ground = True
+            ghost_speed = 0
+            break #stop checking
+    if y_collision == False:
+        ghost_y = new_ghost_y
+
+
+    #horizontal move
+    new_ghost_rect = pygame.Rect(new_ghost_x, ghost_y, SPRITEWH, SPRITEWH)
+    x_collision = False
+    for p in platforms:
+        if p.colliderect(new_ghost_rect):
+            print("hit face")
+            x_collision = True
+            break
+    if x_collision == False:
+        ghost_x = new_ghost_x
+
+
+
+
+
+
+
+
+    #fall off screen reset
+def check_keypress(keys_pressed):
+    global new_ghost_x, ghost_speed
+    if keys_pressed[pygame.K_a]:
+        new_ghost_x -= 3
+    if keys_pressed[pygame.K_s]:
+        new_ghost_x +=3
+
+
 
 ##-----------UPDATE SCREEN
 
 
 ##-----------MAINLOOP
 def go():
+    global spriteFaceRight, new_ghost_x, new_ghost_y
     running = True
     while running:
         clock.tick(FPS) #reuglate loop speed
@@ -94,6 +130,11 @@ def go():
                     pygame.quit()
                 if event.key == pygame.K_a:
                     spriteFaceRight = False
+                if event.key == pygame.K_s:
+                    spriteFaceRight = False
+        new_ghost_x = ghost_x
+        new_ghost_y = ghost_y
+        check_collision() 
+        check_keypress()
         update_screen()
-
 go()
