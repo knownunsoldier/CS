@@ -38,9 +38,6 @@ platforms = [
     pygame.Rect(100, 250, 50, 50),
     pygame.Rect(450, 250, 300, 50)
     ]
-
-
-
 ##-----------FUNCTIONS
 def update_screen():
     #fill background
@@ -58,6 +55,7 @@ def update_screen():
 def check_collision():
     global ghost_speed, ghost_on_ground
     global y_collision, ghost_y, new_ghost_y
+    global ghost_x, new_ghost_x
 
     #vertical fall
     ghost_speed += ghost_accel
@@ -81,7 +79,6 @@ def check_collision():
 
 
     #horizontal move
-    new_ghost_rect = pygame.Rect(new_ghost_x, ghost_y, SPRITEWH, SPRITEWH)
     x_collision = False
     for p in platforms:
         if p.colliderect(new_ghost_rect):
@@ -90,6 +87,7 @@ def check_collision():
             break
     if x_collision == False:
         ghost_x = new_ghost_x
+    new_ghost_rect = pygame.Rect(new_ghost_x, ghost_y, SPRITEWH, SPRITEWH)
 
 
 
@@ -135,6 +133,6 @@ def go():
         new_ghost_x = ghost_x
         new_ghost_y = ghost_y
         check_collision() 
-        check_keypress()
+        check_keypress(keys_pressed)
         update_screen()
 go()
