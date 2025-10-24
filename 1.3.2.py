@@ -9,9 +9,6 @@ height = 400
 win = pygame.display.set_mode((width, height))
 clock = pygame.time.Clock()
 
-
-
-
 ##-----------VARIABLES
 FPS = 60
 SPRITEWH = 70
@@ -24,13 +21,13 @@ ghost_y = 100
 ghost_accel = 0.4
 ghost_speed = 0
 ghost_on_ground = False
+ghost_x_start = ghost_x
+ghost_y_start = ghost_y
 
 spriteFaceRight = True
 GHOSTimg = pygame.image.load('ghost.gif')
 GHOSTimgL = pygame.transform.scale(GHOSTimg, (SPRITEWH, SPRITEWH))
 ##-----------IMAGES
-
-
 
 ##-----------PLATFORMS
 platforms = [
@@ -97,12 +94,23 @@ def check_collision():
 
 
     #fall off screen reset
+    if ghost_y > height:
+        ghost_x = ghost_x_start
+        ghost_y = ghost_y_start
+
 def check_keypress(keys_pressed):
     global new_ghost_x, ghost_speed
+    #jump
+    if keys_pressed[pygame.K_w]:
+        if ghost_on_ground:
+            ghost_speed = -8
+    
+    #move left/right
     if keys_pressed[pygame.K_a]:
         new_ghost_x -= 3
     if keys_pressed[pygame.K_s]:
         new_ghost_x +=3
+    
 
 
 
