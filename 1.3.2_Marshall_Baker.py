@@ -22,3 +22,10 @@ DAY 3
 - display Winner message
 - start game when ENTER KEY clicked 
 '''
+ # imp libraries
+import pygame
+import random
+pygame.init()
+
+
+#win vars + setup
