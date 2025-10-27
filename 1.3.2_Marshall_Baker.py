@@ -40,3 +40,9 @@ pygame.display.set_caption("super cool game v0.1")
 #set imgs
 BGimg = pygame.image.load("pacScreen.gif") #make img obj
 BGimg = pygame.transform.scale(BGimg, (WIDTH, HEIGHT))
+
+pacimg = pygame.image.load("pac.gif") #make img objp
+pacimg = pygame.transform.scale(pacimg, (spritewh, spritewh))
+
+gstimg = pygame.image.load("ghost.gif") #make img objp
+gstimg = pygame.transform.scale(gstimg, (spritewh, spritewh))
