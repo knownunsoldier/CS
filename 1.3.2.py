@@ -1,21 +1,16 @@
 ##---------- Imports and Setup
 import pygame
 pygame.init()
-
 ##-----------WINDOW/SCREEN
 width = 800
 height = 400
-
 win = pygame.display.set_mode((width, height))
 clock = pygame.time.Clock()
-
 ##-----------VARIABLES
 FPS = 60
 SPRITEWH = 70
-
 gray = (49, 54, 56)
 orange = (240, 157, 81)
-
 ghost_x = 300
 ghost_y = 100
 ghost_accel = 0.4
@@ -23,12 +18,10 @@ ghost_speed = 0
 ghost_on_ground = False
 ghost_x_start = ghost_x
 ghost_y_start = ghost_y
-
 spriteFaceRight = True
 GHOSTimg = pygame.image.load('ghost.gif')
 GHOSTimgL = pygame.transform.scale(GHOSTimg, (SPRITEWH, SPRITEWH))
 ##-----------IMAGES
-
 ##-----------PLATFORMS
 platforms = [
     pygame.Rect(100, 300, 400, 50),
@@ -48,21 +41,17 @@ def update_screen():
     else:
         win.blit(pygame.transform.flip(GHOSTimgL, True, False), (ghost_x, ghost_y))
     pygame.display.update()
-
 def check_collision():
     global ghost_speed, ghost_on_ground
     global y_collision, ghost_y, new_ghost_y
     global x_collision, ghost_x, new_ghost_x
-
     #vertical fall
     ghost_speed += ghost_accel
     new_ghost_y += ghost_speed
-
     #draw rectangle of new possible locations to check if location is availible.
     new_ghost_rect = pygame.Rect(ghost_x, new_ghost_y, SPRITEWH, SPRITEWH)
     y_collision = False
     ghost_on_ground = False
-
     #check to see if we hit platform
     for p in platforms:
         if p.colliderect(new_ghost_rect): #check if touching
@@ -73,8 +62,6 @@ def check_collision():
             break #stop raschecking
     if y_collision == False:
         ghost_y = new_ghost_y
-
-
     #horizontal move
     new_ghost_rect = pygame.Rect(new_ghost_x, ghost_y, SPRITEWH, SPRITEWH)
     x_collision = False
@@ -85,38 +72,22 @@ def check_collision():
             break
     if x_collision == False:
         ghost_x = new_ghost_x
-
-
-
-
-
-
-
-
     #fall off screen reset
     if ghost_y > height:
         ghost_x = ghost_x_start
         ghost_y = ghost_y_start
-
 def check_keypress(keys_pressed):
     global new_ghost_x, ghost_speed
     #jump
     if keys_pressed[pygame.K_w]:
         if ghost_on_ground:
             ghost_speed = -8
-    
     #move left/right
     if keys_pressed[pygame.K_a]:
         new_ghost_x -= 3
     if keys_pressed[pygame.K_s]:
-        new_ghost_x +=3
-    
-
-
-
+        new_ghost_x += 3
 ##-----------UPDATE SCREEN
-
-
 ##-----------MAINLOOP
 def go():
     global spriteFaceRight, new_ghost_x, new_ghost_y
@@ -138,7 +109,6 @@ def go():
                     spriteFaceRight = True
                 if event.key == pygame.K_s:
                     spriteFaceRight = False
-                    
         new_ghost_x = ghost_x
         new_ghost_y = ghost_y
         check_keypress(keys_pressed)
