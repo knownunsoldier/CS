@@ -36,3 +36,7 @@ spritewh = 30
 #create win
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("super cool game v0.1")
+#
+#set imgs
+BGimg = pygame.image.load("pacScreen.gif") #make img obj
+BGimg = pygame.transform.scale(BGimg, (WIDTH, HEIGHT))
