@@ -54,5 +54,7 @@ gstimg = pygame.transform.scale(gstimg, (spritewh, spritewh))
 
 
 def go():
-    pass
+    running = True
+    while running:
+        print("hey")
 go()
