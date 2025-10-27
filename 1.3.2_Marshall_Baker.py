@@ -22,10 +22,17 @@ DAY 3
 - display Winner message
 - start game when ENTER KEY clicked 
 '''
- # imp libraries
+# imp libraries
 import pygame
 import random
 pygame.init()
 
 
 #win vars + setup
+WIDTH = 600
+HEIGHT = 300
+spritewh = 30
+
+#create win
+WIN = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("super cool game v0.1")
