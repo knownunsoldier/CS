@@ -46,3 +46,13 @@ pacimg = pygame.transform.scale(pacimg, (spritewh, spritewh))
 
 gstimg = pygame.image.load("ghost.gif") #make img objp
 gstimg = pygame.transform.scale(gstimg, (spritewh, spritewh))
+
+
+
+
+
+
+
+def go():
+    pass
+go()
