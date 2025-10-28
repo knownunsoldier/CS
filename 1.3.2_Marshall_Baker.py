@@ -56,13 +56,13 @@ pac = pygame.Rect(100, 100, spritewh, spritewh) #4params xloc, yloc, w, h
 
 #funcss outside mainloop
 def player_movement():
-    if keys_pressed[pygame.K_UP]:
+    if keys_pressed[pygame.K_UP] and pac.y>0:
         pac.y -= pac_velo
-    if keys_pressed[pygame.K_DOWN]:
+    if keys_pressed[pygame.K_DOWN] and pac.y<HEIGHT-spritewh:
         pac.y += pac_velo
-    if keys_pressed[pygame.K_LEFT]:
-        pac.x -= pac_velo
-    if keys_pressed[pygame.K_RIGHT]:
+    if keys_pressed[pygame.K_LEFT] and pac.x-spritewh>0:
+        pac.x -= pac_velo 
+    if keys_pressed[pygame.K_RIGHT] and pac.x<WIDTH//2:
         pac.x += pac_velo
 
 
