@@ -37,6 +37,8 @@ spritewh = 30
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("super cool game v0.1")
 #
+fps = 60
+pac_velo = 5
 #set imgs
 BGimg = pygame.image.load("pacScreen.gif") #make img obj
 BGimg = pygame.transform.scale(BGimg, (WIDTH, HEIGHT))
@@ -46,15 +48,48 @@ pacimg = pygame.transform.scale(pacimg, (spritewh, spritewh))
 
 gstimg = pygame.image.load("ghost.gif") #make img objp
 gstimg = pygame.transform.scale(gstimg, (spritewh, spritewh))
+ 
+#make recs
+ghost = pygame.Rect(WIDTH-spritewh, 100, spritewh, spritewh)
+pac = pygame.Rect(100, 100, spritewh, spritewh) #4params xloc, yloc, w, h
 
 
+#funcss outside mainloop
+def player_movement():
+    if keys_pressed[pygame.K_UP]:
+        pac.y -= pac_velo
+    if keys_pressed[pygame.K_DOWN]:
+        pac.y += pac_velo
+    if keys_pressed[pygame.K_LEFT]:
+        pac.x -= pac_velo
+    if keys_pressed[pygame.K_RIGHT]:
+        pac.x += pac_velo
 
 
+#func update screen--important
+def update_screen():
+    WIN.blit(BGimg, (0,0))
+    WIN.blit(pacimg, (pac.x,pac.y))
+    WIN.blit(gstimg, (ghost.x, ghost.y))
+    pygame.display.update()
 
-
-
+#go
+keys_pressed = []
 def go():
+    global keys_pressed
+    clock = pygame.time.Clock() #inst clock obj
     running = True
     while running:
-        print("hey")
+        clock.tick(fps)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT: #click type right x
+                running = False
+                pygame.quit() #close win
+        keys_pressed = pygame.key.get_pressed()
+        print(keys_pressed)
+        update_screen()
+        player_movement()
+
+
+
 go()
