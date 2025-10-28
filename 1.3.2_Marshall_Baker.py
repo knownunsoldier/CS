@@ -36,25 +36,26 @@ spritewh = 30
 #create win
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("super cool game v0.1")
-#
+
+#et al vars
 fps = 60
 pac_velo = 5
+
 #set imgs
-BGimg = pygame.image.load("pacScreen.gif") #make img obj
+BGimg = pygame.image.load("pacScreen.gif") #make bg obj
 BGimg = pygame.transform.scale(BGimg, (WIDTH, HEIGHT))
 
-pacimg = pygame.image.load("pac.gif") #make img objp
+pacimg = pygame.image.load("pac.gif") #make pacman obj
 pacimg = pygame.transform.scale(pacimg, (spritewh, spritewh))
 
-gstimg = pygame.image.load("ghost.gif") #make img objp
+gstimg = pygame.image.load("ghost.gif") #make ghost obj
 gstimg = pygame.transform.scale(gstimg, (spritewh, spritewh))
- 
+
 #make recs
 ghost = pygame.Rect(WIDTH-spritewh, 100, spritewh, spritewh)
 pac = pygame.Rect(100, 100, spritewh, spritewh) #4params xloc, yloc, w, h
 
-
-#funcss outside mainloop
+#funcs outside mainloop
 def player_movement():
     if keys_pressed[pygame.K_UP] and pac.y>0:
         pac.y -= pac_velo
@@ -64,7 +65,6 @@ def player_movement():
         pac.x -= pac_velo 
     if keys_pressed[pygame.K_RIGHT] and pac.x<WIDTH//2:
         pac.x += pac_velo
-
 
 #func update screen--important
 def update_screen():
@@ -89,7 +89,4 @@ def go():
         print(keys_pressed)
         update_screen()
         player_movement()
-
-
-
 go()
