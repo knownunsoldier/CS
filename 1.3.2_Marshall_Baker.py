@@ -42,6 +42,10 @@ fps = 60
 pac_velo = 5
 ghost_velo = 3
 updown = "up"
+bullets_fired = []
+white = (255, 255, 255)
+green = (0, 255, 0)
+
 
 #set imgs
 BGimg = pygame.image.load("pacScreen.gif") #make bg obj
@@ -88,6 +92,8 @@ def ghost_movement():
             updown = "up"
         if updown == "up":
             updown = "down"
+
+
 #func update screen--important
 def update_screen():
     WIN.blit(BGimg, (0,0))
@@ -98,7 +104,7 @@ def update_screen():
 #mainloop
 keys_pressed = []
 def go():
-    global keys_pressed
+    global keys_pressed, bullets_fired
     clock = pygame.time.Clock() #inst clock obj
     running = True
     while running:
@@ -106,6 +112,12 @@ def go():
         for event in pygame.event.get():
             if event.type == pygame.QUIT: #click type right x
                 running = False
+                pygame.quit() #close win
+            if event.type == pygame.KEYDOWN: #any?
+                if event.key == pygame.K_SPACE:
+                    bullet = pygame.Rect(pac.x, pac.y, 13, 7)
+                    bullets_fired.append(bullet)
+                    print(bullets_fired)
                 pygame.quit() #close win
         keys_pressed = pygame.key.get_pressed()
         print(keys_pressed)
