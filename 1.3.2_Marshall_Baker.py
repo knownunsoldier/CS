@@ -40,6 +40,8 @@ pygame.display.set_caption("super cool game v0.1")
 #et al vars
 fps = 60
 pac_velo = 5
+ghost_velo = 3
+updown = "up"
 
 #set imgs
 BGimg = pygame.image.load("pacScreen.gif") #make bg obj
@@ -55,7 +57,7 @@ gstimg = pygame.transform.scale(gstimg, (spritewh, spritewh))
 ghost = pygame.Rect(WIDTH-spritewh, 100, spritewh, spritewh)
 pac = pygame.Rect(100, 100, spritewh, spritewh) #4params xloc, yloc, w, h
 
-#funcs outside mainloop
+#funcs in mainloop
 def player_movement():
     if keys_pressed[pygame.K_UP] and pac.y>0:
         pac.y -= pac_velo
@@ -65,7 +67,8 @@ def player_movement():
         pac.x -= pac_velo 
     if keys_pressed[pygame.K_RIGHT] and pac.x<WIDTH//2:
         pac.x += pac_velo
-
+def ghost_movement():
+    
 #func update screen--important
 def update_screen():
     WIN.blit(BGimg, (0,0))
