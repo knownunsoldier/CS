@@ -75,10 +75,19 @@ def ghost_movement():
     if updown == "up":
 
         ghost.y -= ghost_velo
+    #bounce
     if ghost.y>HEIGHT-spritewh:
         updown = "up"
     if ghost.y<10:
         updown = "down"
+    #jukes
+    juke = random.randint(0,50)
+    if juke == 42:
+        print("juke!")
+        if updown == "down":
+            updown = "up"
+        if updown == "up":
+            updown = "down"
 #func update screen--important
 def update_screen():
     WIN.blit(BGimg, (0,0))
@@ -86,7 +95,7 @@ def update_screen():
     WIN.blit(gstimg, (ghost.x, ghost.y))
     pygame.display.update()
 
-#go
+#mainloop
 keys_pressed = []
 def go():
     global keys_pressed
