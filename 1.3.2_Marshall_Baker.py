@@ -99,6 +99,8 @@ def update_screen():
     WIN.blit(BGimg, (0,0))
     WIN.blit(pacimg, (pac.x,pac.y))
     WIN.blit(gstimg, (ghost.x, ghost.y))
+    for bullet in bullets_fired:
+        pygame.draw.rect(WIN, green, bullet) #on what, what color, what to draw
     pygame.display.update()
 
 #mainloop
@@ -118,7 +120,6 @@ def go():
                     bullet = pygame.Rect(pac.x, pac.y, 13, 7)
                     bullets_fired.append(bullet)
                     print(bullets_fired)
-                pygame.quit() #close win
         keys_pressed = pygame.key.get_pressed()
         print(keys_pressed)
         update_screen()
