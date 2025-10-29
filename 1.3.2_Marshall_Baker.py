@@ -68,7 +68,17 @@ def player_movement():
     if keys_pressed[pygame.K_RIGHT] and pac.x<WIDTH//2:
         pac.x += pac_velo
 def ghost_movement():
-    
+    global updown#movement 
+    if updown == "down":
+
+        ghost.y += ghost_velo
+    if updown == "up":
+
+        ghost.y -= ghost_velo
+    if ghost.y>HEIGHT-spritewh:
+        updown = "up"
+    if ghost.y<10:
+        updown = "down"
 #func update screen--important
 def update_screen():
     WIN.blit(BGimg, (0,0))
@@ -92,4 +102,5 @@ def go():
         print(keys_pressed)
         update_screen()
         player_movement()
+        ghost_movement()
 go()
