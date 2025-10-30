@@ -69,7 +69,6 @@ def ghost_movement():
         if updown == "up":
             updown = "down"
 
-
 #func update screen--important
 def update_screen():
     WIN.blit(BGimg, (0,0))
@@ -93,7 +92,7 @@ def go():
                 pygame.quit() #close win
             if event.type == pygame.KEYDOWN: #any?
                 if event.key == pygame.K_SPACE:
-                    bullet = pygame.Rect(pac.x, pac.y, 13, 7)
+                    bullet = pygame.Rect(pac.x+spritewh//2, pac.y+(spritewh/2), 13, 7)
                     bullets_fired.append(bullet)
                     print(bullets_fired)
         keys_pressed = pygame.key.get_pressed()
