@@ -75,14 +75,21 @@ def ghost_movement():
             updown = "up"
         if updown == "up":
             updown = "down"
+def bullet_actions():
+    for bullet in bullets_fired:
+        bullet.x +=bullet_velo
 
 #func update screen--important
 def update_screen():
     WIN.blit(BGimg, (0,0))
     WIN.blit(pacimg, (pac.x,pac.y))
     WIN.blit(gstimg, (ghost.x, ghost.y))
+
     for bullet in bullets_fired:
         pygame.draw.rect(WIN, green, bullet) #on what, what color, what to draw
+
+
+
     pygame.display.update()
 
 #mainloop
@@ -107,4 +114,5 @@ def go():
         update_screen()
         player_movement()
         ghost_movement()
+        bullet_actions()
 go()
