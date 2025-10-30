@@ -17,24 +17,31 @@ pygame.display.set_caption("super cool game v0.1")
 fps = 60
 pac_velo = 5
 ghost_velo = 3
-updown = "up"
+ghost_health = 5
+bullet_velo = 7
+max_bullet = 4
 bullets_fired = []
+
+
+
+
+updown = "up"
 white = (255, 255, 255)
 green = (0, 255, 0)
 
 
 #set imgs
-BGimg = pygame.image.load("pacScreen.gif") #make bg obj
+BGimg = pygame.image.load("encounter.gif") #make bg obj
 BGimg = pygame.transform.scale(BGimg, (WIDTH, HEIGHT))
 
-pacimg = pygame.image.load("pac.gif") #make pacman obj
+pacimg = pygame.image.load("heart.gif") #make pacman obj
 pacimg = pygame.transform.scale(pacimg, (spritewh, spritewh))
 
-gstimg = pygame.image.load("ghost.gif") #make ghost obj
-gstimg = pygame.transform.scale(gstimg, (spritewh, spritewh))
+gstimg = pygame.image.load("sans.gif") #make ghost obj
+gstimg = pygame.transform.scale(gstimg, (spritewh*2, spritewh*3))
 
 #make recs
-ghost = pygame.Rect(WIDTH-spritewh, 100, spritewh, spritewh)
+ghost = pygame.Rect(WIDTH-spritewh*2, 100, spritewh*2, spritewh*3)
 pac = pygame.Rect(100, 100, spritewh, spritewh) #4params xloc, yloc, w, h
 
 #funcs in mainloop
@@ -56,14 +63,14 @@ def ghost_movement():
 
         ghost.y -= ghost_velo
     #bounce
-    if ghost.y>HEIGHT-spritewh:
+    if ghost.y>HEIGHT-spritewh*3:
         updown = "up"
     if ghost.y<10:
         updown = "down"
     #jukes
     juke = random.randint(0,50)
     if juke == 42:
-        print("juke!")
+        #print("juke!")
         if updown == "down":
             updown = "up"
         if updown == "up":
@@ -94,9 +101,9 @@ def go():
                 if event.key == pygame.K_SPACE:
                     bullet = pygame.Rect(pac.x+spritewh//2, pac.y+(spritewh/2), 13, 7)
                     bullets_fired.append(bullet)
-                    print(bullets_fired)
+                    #print(bullets_fired)
         keys_pressed = pygame.key.get_pressed()
-        print(keys_pressed)
+        #print(keys_pressed)
         update_screen()
         player_movement()
         ghost_movement()
