@@ -90,10 +90,13 @@ def bullet_actions():
             bullets_fired.remove(bullet)
             ghost_health-=1
             print(ghost_health)
-            
-            
-            
-            #func update screen--important
+def win_screen(text, size):
+    winner_font=pygame.font.SysFont('comicsans', size)
+    winner_font_text = winner_font.render(text, 1, white)
+    WIN.blit(winner_font_text, (20, 20))
+    pygame.display.update()
+    pygame.time.delay(3000)#3sec
+    WIN.blit(BGimg, (0,0))
 def update_screen():
     WIN.blit(BGimg, (0,0))
     WIN.blit(pacimg, (pac.x,pac.y))
@@ -101,17 +104,23 @@ def update_screen():
 
     for bullet in bullets_fired:
         pygame.draw.rect(WIN, green, bullet) #on what, what color, what to draw
-     
-
+    ghost_health_text=ghost_health_fond.render("Ghost Health: "+str(ghost_health), 1, white)
+    WIN.blit(ghost_health_text, (WIDTH-ghost_health_text.get_width(), 0))
 
     pygame.display.update()
 
 #mainloop
 keys_pressed = []
+start_game=False
 def go():
-    global keys_pressed, bullets_fired
+    global keys_pressed, bullets_fired, ghost_health
     clock = pygame.time.Clock() #inst clock obj
+    print("Arrow keys to move, spacebar to fire. Hit enter to start game.")
+
+    ghost_health=5
     running = True
+    start_game=False
+    keys_pressed=[]
     while running:
         clock.tick(fps)
         for event in pygame.event.get():
@@ -123,10 +132,19 @@ def go():
                     bullet = pygame.Rect(pac.x+spritewh//2, pac.y+(spritewh/2), 13, 7)
                     bullets_fired.append(bullet)
                     #print(bullets_fired)
+                if event.key==pygame.K_RETURN and start_game==False:
+                    start_game=True
         keys_pressed = pygame.key.get_pressed()
         #print(keys_pressed)
         update_screen()
-        player_movement()
-        ghost_movement()
-        bullet_actions()
+
+        if ghost_health<=0:
+            win_screen("you won!!!", 120)
+            win_screen("hit enter to play again", 80)
+            break#exit wloop
+        if start_game==True:
+            player_movement()
+            ghost_movement()
+            bullet_actions()
+    go()
 go()
