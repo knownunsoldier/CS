@@ -105,7 +105,7 @@ def go():
                 running = False
                 pygame.quit() #close win
             if event.type == pygame.KEYDOWN: #any?
-                if event.key == pygame.K_SPACE:
+                if event.key == pygame.K_SPACE and len(bullets_fired)<max_bullet:
                     bullet = pygame.Rect(pac.x+spritewh//2, pac.y+(spritewh/2), 13, 7)
                     bullets_fired.append(bullet)
                     #print(bullets_fired)
