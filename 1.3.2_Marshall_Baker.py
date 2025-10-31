@@ -44,6 +44,10 @@ gstimg = pygame.transform.scale(gstimg, (spritewh*2, spritewh*3))
 ghost = pygame.Rect(WIDTH-spritewh*2, 100, spritewh*2, spritewh*3)
 pac = pygame.Rect(100, 100, spritewh, spritewh) #4params xloc, yloc, w, h
 
+#hand font
+pygame.font.init()
+ghost_health_fond=pygame.font.SysFont("comicsans", 40)
+
 #funcs in mainloop
 def player_movement():
     if keys_pressed[pygame.K_UP] and pac.y>0:
@@ -76,10 +80,20 @@ def ghost_movement():
         if updown == "up":
             updown = "down"
 def bullet_actions():
+    global bullets_fired
+    global ghost_health
     for bullet in bullets_fired:
         bullet.x +=bullet_velo
-
-#func update screen--important
+        if bullet.x>WIDTH:
+            bullets_fired.remove(bullet)
+        if bullet.colliderect(ghost):
+            bullets_fired.remove(bullet)
+            ghost_health-=1
+            print(ghost_health)
+            
+            
+            
+            #func update screen--important
 def update_screen():
     WIN.blit(BGimg, (0,0))
     WIN.blit(pacimg, (pac.x,pac.y))
@@ -87,7 +101,7 @@ def update_screen():
 
     for bullet in bullets_fired:
         pygame.draw.rect(WIN, green, bullet) #on what, what color, what to draw
-
+     
 
 
     pygame.display.update()
