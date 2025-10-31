@@ -134,8 +134,9 @@ def go():
                     #print(bullets_fired)
                 if event.key==pygame.K_RETURN and start_game==False:
                     start_game=True
-        keys_pressed = pygame.key.get_pressed()
-        #print(keys_pressed)
+
+        keys_pressed = tpygame.key.get_pressed()
+        print(keys_pressed)
         update_screen()
 
         if ghost_health<=0:
